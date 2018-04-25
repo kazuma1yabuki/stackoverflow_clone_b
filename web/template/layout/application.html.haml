@@ -1,0 +1,14 @@
+!!! 5
+%html(lang="ja")
+  %head
+    %meta(charset="utf-8")
+    %meta(content="" name="keywords")
+    %meta(content="" name="description")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %meta(http-equiv="X-UA-Compatible" content="E=edge")
+    %link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" crossorigin="anonymous" media="all" rel="stylesheet")
+    %title StackoverflowCloneB
+  %body
+    = yield
+    %script(src="#{StackoverflowCloneB.Asset.make_url(~S(main.js))}")
+    %script(src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous")

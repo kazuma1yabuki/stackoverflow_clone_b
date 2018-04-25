@@ -2,7 +2,7 @@ use Croma
 
 defmodule StackoverflowCloneB.Dodai do
   app_id   = "a_5xwfLJSx"
-  group_id = "g_6KDYgzxs"
+  group_id = "g_Q7RKs7cs"
 
   use SolomonAcs.Dodai.GearModule,
     app_id:                app_id,

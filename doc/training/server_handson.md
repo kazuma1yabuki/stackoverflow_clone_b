@@ -9,8 +9,6 @@
 ## gearのSetup
 
 * [Setupドキュメント](../development.md)に従い、ベースとなるgearのSetupを行なう。
-  * 今回利用する`app_id`は`XXXX(TODO: appを作成する)`であり、`group_id`は[ここ](https://docs.google.com/spreadsheets/d/1PSWQ7XDODvCqVvZ2P4jK1bj6oUpN1VlB1dcUCgVyoUY/edit#gid=927490106)を参照
-  * `root key`, `app key`は[ここ](https://docs.google.com/spreadsheets/d/1PSWQ7XDODvCqVvZ2P4jK1bj6oUpN1VlB1dcUCgVyoUY/edit#gid=0)参照してac consoleにログインして確認
 
 ## Gearの設計について
 

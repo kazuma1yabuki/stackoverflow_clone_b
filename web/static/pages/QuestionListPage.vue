@@ -34,7 +34,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('retrieveQuestions');
+    this.retrieveQuestions();
+  },
+  methods: {
+    retrieveQuestions() {
+      this.$store.dispatch('retrieveQuestions');
+    },
   },
 };
 </script>

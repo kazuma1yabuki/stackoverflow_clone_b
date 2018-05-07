@@ -33,7 +33,12 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('retrieveBooks');
+    this.retrieveBooks();
+  },
+  methods: {
+    retrieveBooks() {
+      this.$store.dispatch('retrieveBooks');
+    },
   },
 };
 </script>

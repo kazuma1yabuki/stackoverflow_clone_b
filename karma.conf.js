@@ -1,5 +1,7 @@
 const webpackConfig = require('./webpack.config');
 
+const isCoverage = process.env.BABEL_ENV === 'coverage';
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -14,7 +16,7 @@ module.exports = function (config) {
       'js_test/**/*.spec.js': ['webpack'],
       'web/static/main.js': ['webpack'],
     },
-    reporters: ['progress'],
+    reporters: isCoverage ? ['progress', 'coverage'] : ['progress'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

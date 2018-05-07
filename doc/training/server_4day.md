@@ -1,9 +1,5 @@
 # Server実習4日目
 
-
-  * `retrieveQuestionList API` (`GET  /v1/question`)
-    * API自体はすでにあるが、request parameterとして`user_id`が指定された場合は、その指定された値をもつquestionのみを返すように拡張する。
-
 ## 内容
 
 * `Comment` APIとして下記のAPIを実装する

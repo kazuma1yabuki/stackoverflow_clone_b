@@ -1,19 +1,16 @@
 <template>
   <div>
-    <div v-if="!hasValidBook">
-      読み込み中。
-    </div>
-    <div v-else>
+    <div v-if="hasValidBook">
       <book
         :book="book"
         class="book"
         @update="updateBook"
       />
+      <hr>
+      <router-link :to="{ name: 'BookListPage'}">
+        一覧に戻る
+      </router-link>
     </div>
-    <hr>
-    <router-link :to="{ name: 'BookListPage'}">
-      一覧に戻る
-    </router-link>
   </div>
 </template>
 
@@ -28,7 +25,7 @@ export default {
   },
   computed: {
     hasValidBook() {
-      return !_.isEmpty(this.book);
+      return !_.isEmpty(this.book) && this.book.id === this.$route.params.id;
     },
     book() {
       return this.$store.state.book;

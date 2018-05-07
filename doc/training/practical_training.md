@@ -14,9 +14,13 @@
 本自習では[Stackoverflow](https://stackoverflow.com/)のクローンアプリの開発を行なう。
 実習はServer実習とWebfrontendの実習の2部構成となる。
 
+最初に質問一覧画面の一部が実装済みのコードを提供いたします。
+本実習ではこのコードを元に未実装部分を実装するという流れで行います。
+
 ## 作成物詳細
 
 [仕様](../spec/spec.md)を満たす、Stackoverflowのクローンアプリを開発する。
+成果物のデモは[こちら](https://stackoverflow-clone.solomondev.access-company.com)
 
 ### Server側開発項目
 
@@ -84,6 +88,6 @@ master branchへのcommitまでの流れは下記です。
 * 実習中不明点などがあれば積極的に講師にご質問ください。
 * サンプルとして`Book`リソースにたいするCRU(D) APIの実装がありますので、必要に応じて参照ください。
   * [仕様](../spec/book_api_spec.yml)
-  * [実装](../../web/controller/book/)
-  * [テスト](../../test/web/controller/book/)
-* [Gear側Q&A](./server_qaa.md)も必要に応じで参照ください。
+  * [Gear側の実装](../../web/controller/book/)
+  * [Gear側のテスト](../../test/web/controller/book/)
+* [Gear側のQ&A](./server_qaa.md)も必要に応じで参照ください。

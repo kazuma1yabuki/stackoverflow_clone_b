@@ -5,8 +5,6 @@
 * `Question` APIとして下記のAPIを実装する
   * `createQuestion API`       (`POST /v1/question`)
   * `updateQuestion API`       (`POST /v1/question/{id}`)
-  * `retrieveQuestionList API` (`GET  /v1/question`)
-    * API自体はすでにあるが、request parameterとして`user_id`が指定された場合は、その指定された値をもつquestionのみを返すように拡張する。
 
 ## ヒント
 
@@ -100,6 +98,3 @@
          * 宣言したstructを満たすmapであれば、`{:ok, XXX}`が返り、そうでなければ`{:error, XXX}`が返る。
       1. 返り値により分岐を行い、`{:ok, XXX}`であれば次の処理、`{:error, XXX}`であれば、クライアントには404エラーを返し処理を終了する。
     * 具体的な`Croma.Struct`の使用例は[ここ](./croma.md)を参照
-* `retrieveQuestionList API`でのrequest parameterについて
-  * `user_id`が指定された場合は、`data.user_id`として指定された値をもつ`Question`のみをレスポンスとして返す必要がある。
-  * そのためには、Dodaiに対してrequestする際の`query`として「`data.user_id`が指定された値をもつこと」という条件を与える`query`を含めなければならない。

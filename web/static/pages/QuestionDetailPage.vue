@@ -3,6 +3,7 @@
     <div v-if="hasValidQuestion">
       <question :question="question"/>
     </div>
+    <h1 v-else>404 (Not Found)</h1>
   </div>
 </template>
 

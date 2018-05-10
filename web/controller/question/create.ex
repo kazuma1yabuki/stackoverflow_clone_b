@@ -1,4 +1,19 @@
 defmodule StackoverflowCloneB.Controller.Question.Create do
+
+  defmodule RequestBody do
+    defmodule TitleString do
+      use Croma.SubtypeOfString, pattern: ~r/^.{1,100}$/
+    end
+    defmodule BodyString do
+      use Croma.SubtypeOfString, pattern: ~r/^.{1,1000}$/
+    end
+
+    use Croma.Struct, fields: [
+      title: TitleString, #conn.request.bodyをTitleStringで縛る
+      body: BodyString,
+    ]
+  end
+
   use StackoverflowCloneB.Controller.Application
   alias StackoverflowCloneB.Dodai, as: SD
   alias Sazabi.G2gClient
@@ -9,15 +24,25 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
 
   def create(conn) do
     # 作成するquestionのdataを組み立てる
-    data = %{
-      "comments"        => [],
-      "like_voter_ids"    => [],
-      "dislike_voter_ids" => [],
-      # titleとbodyはrequest bodyから取り出す
-      "title"           => conn.request.body["title"],
-      "body"            => conn.request.body["body"],
-      "user_id"          => conn.assigns.me["_id"],
-    }
+
+    rqbody = RequestBody.new(conn.request.body)
+    IO.inspect rqbody
+    #IO.inspect elem(rqbody, 0) == :Error
+
+    #case　elem do
+    #  true -> "aaaaaa"
+    #  false -> "bbbbbb"
+      case rqbody do
+        {:ok,_} ->
+          data = %{
+            "comments"        => [],
+            "like_voter_ids"    => [],
+            "dislike_voter_ids" => [],
+            # titleとbodyはrequest bodyから取り出す
+        "title"           => conn.request.body["title"],
+        "body"            => conn.request.body["body"],
+        "user_id"          => conn.assigns.me["_id"],
+      }
       ## userの情報はconn.assigns.meに入っている
       ## 下記の行を追加して確認してみよう
       ## IO.inspect conn.assigns.me
@@ -41,5 +66,9 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
     # 3. responseを変換する
     # 下記の第三引数は上記のres_bodyを適切な形に変換したものに書き換えよう(to_response_body/1を使おう)
        Conn.json(conn, 200, Helper.to_response_body(res_body))
+       {:error,_} ->
+         ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new)
+      end
   end
+
 end

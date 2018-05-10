@@ -11,7 +11,7 @@ defmodule StackoverflowCloneB.Controller.Question.CreateTest do
     "Create question test" do
     :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
       SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
-    end)      
+    end)
     :meck.expect(G2gClient, :send, fn(_, _, req) ->
       assert req.body == %Dodai.CreateDedicatedDataEntityRequestBody{
         data: %{
@@ -22,12 +22,10 @@ defmodule StackoverflowCloneB.Controller.Question.CreateTest do
           "body" => "本文",
           "user_id" => "user_id",}
       }
-      IO.inspect req.body
       %Dodai.CreateDedicatedDataEntitySuccess{body: QuestionData.dodai()}
     end)
 
     res = Req.post_json(@api_prefix, @body, @header)
-    IO.inspect res.status
     assert res.status               == 201
     assert Poison.decode!(res.body) == QuestionData.gear()
   end

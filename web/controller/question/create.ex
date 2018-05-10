@@ -27,11 +27,7 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
 
     rqbody = RequestBody.new(conn.request.body)
     IO.inspect rqbody
-    #IO.inspect elem(rqbody, 0) == :Error
 
-    #case　elem do
-    #  true -> "aaaaaa"
-    #  false -> "bbbbbb"
       case rqbody do
         {:ok,_} ->
           data = %{

@@ -1,25 +1,37 @@
+use Croma
+
+defmodule StackoverflowCloneB.Controller.Question.CreateRequestBody do
+  alias StackoverflowCloneB.Controller.Question.Helper.Params
+
+  use Croma.Struct, fields: [
+    title:  Params.Title,
+    body: Params.Body,
+  ]
+end
+
 defmodule StackoverflowCloneB.Controller.Question.Create do
   use StackoverflowCloneB.Controller.Application
   alias Sazabi.G2gClient
-  alias StackoverflowCloneB.Controller.Question.Helper
+  alias StackoverflowCloneB.Controller.Question.{CreateRequestBody, Helper}
   alias StackoverflowCloneB.Error.BadRequestError
   alias StackoverflowCloneB.Dodai, as: SD
 
   plug StackoverflowCloneB.Plug.FetchMe, :fetch, []
 
-  def create(conn) do
-    # Prepare request data
-    request_body = conn.request.body
-    title = request_body["title"]
-    body = request_body["body"]
-    title_length = String.length(title)
-    IO.inspect title_length
-    if title_length < 100 do
-      sendRequest(conn, title, body)
-    else
-      Conn.json(conn, 400, %{"message" => "Title shouldn't be more than 100"})
+  def create(%Conn{request: %Request{body: body}} = conn) do
+    case CreateRequestBody.new(body) do
+      {:error, _} ->
+        IO.inspect body
+        ErrorJson.json_by_error(conn, BadRequestError.new())
+      {:ok, _} ->
+        # Prepare request data
+        title = body["title"]
+        body = body["body"]
+        title_length = String.length(title)
+        IO.inspect title_length
+        
+        sendRequest(conn, title, body)
     end
-    
   end
 
   defp sendRequest(conn, title, body) do
@@ -39,7 +51,7 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
 
     case response do
       %Dodai.CreateDedicatedDataEntitySuccess{body: res_body}
-        -> Conn.json(conn, 201, %{"message" => Helper.to_response_body(res_body)})
+        -> Conn.json(conn, 201, Helper.to_response_body(res_body))
       %Dodai.ResourceNotFound{}
         -> ErrorJson.json_by_error(conn, BadRequestError.new())
     end

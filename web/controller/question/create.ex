@@ -9,10 +9,21 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
 
   def create(conn) do
     # Prepare request data
-    user_id = conn.assigns.me["_id"]
     request_body = conn.request.body
     title = request_body["title"]
     body = request_body["body"]
+    title_length = String.length(title)
+    IO.inspect title_length
+    if title_length < 100 do
+      sendRequest(conn, title, body)
+    else
+      Conn.json(conn, 400, %{"message" => "Title shouldn't be more than 100"})
+    end
+    
+  end
+
+  defp sendRequest(conn, title, body) do
+    user_id = conn.assigns.me["_id"]
     request_data = %{
       "comments"        => [],
       "like_voter_ids"    => [],

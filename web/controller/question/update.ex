@@ -1,8 +1,23 @@
+use Croma
 defmodule StackoverflowCloneB.Controller.Question.Update do
   use StackoverflowCloneB.Controller.Application
   alias StackoverflowCloneB.Dodai, as: SD
   alias Sazabi.G2gClient
+  alias StackoverflowCloneB.Controller.Question.Helper
 
+  defmodule RequestBody do
+    defmodule TitleString do
+      use Croma.SubtypeOfString, pattern: ~r/^.{1,100}$/
+    end
+    defmodule BodyString do
+      use Croma.SubtypeOfString, pattern: ~r/^.{1,1000}$/
+    end
+
+    use Croma.Struct, fields: [
+      title: Croma.TypeGen.nilable(TitleString), #conn.request.bodyをTitleStringで縛る
+      body: Croma.TypeGen.nilable(BodyString),
+    ]
+  end
 
   plug StackoverflowCloneB.Plug.FetchMe, :fetch, []
 
@@ -17,23 +32,25 @@ defmodule StackoverflowCloneB.Controller.Question.Update do
       if question["data"]["user_id"] == conn.assigns.me["_id"] do
         ## 一致した場合
         ## 更新処理をする(下記の処理を書いてみましょう)
+        rqbody = RequestBody.new(conn.request.body)
+        #IO.inspect rqbody
+        case rqbody do
+          {:ok,_} ->
 
-        req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => conn.request.body}}
-        req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", id, SD.root_key(), req_body)
-
-         IO.inspect G2gClient.send(conn.context, SD.app_id(), req)
-
-
-        ### 1. dodaiに対してrequestするrequest bodyを作成する
-        ### 2. dodaiに対してrequestするためのstructを作る
-        ### 3. クライアントにレスポンスを返す(dodaiのresponse bodyがいつもと違うことに注意)
-
-        Conn.json(conn, 200, %{"message" => "書き換えが必要です"})
-
-    else
+            ### 1. dodaiに対してrequestするrequest bodyを作成する
+            req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => conn.request.body}}
+            ### 2. dodaiに対してrequestするためのstructを作る
+            req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", id, SD.root_key(), req_body)
+            %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)
+            ### 3. クライアントにレスポンスを返す(dodaiのresponse bodyがいつもと違うことに注意)
+            Conn.json(conn, 200, Helper.to_response_body(res_body))
+          {:error,_} ->
+            ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new)
+        end
+      else
       ## 一致しない場合、下記のようにエラーを返す
        ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.CredentialError.new())
-    end
+      end
 
     end)
   end

@@ -21,14 +21,14 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
   def create(%Conn{request: %Request{body: body}} = conn) do
     case CreateRequestBody.new(body) do
       {:error, _} ->
-        IO.inspect body
+        # IO.inspect body
         ErrorJson.json_by_error(conn, BadRequestError.new())
       {:ok, _} ->
         # Prepare request data
         title = body["title"]
         body = body["body"]
-        title_length = String.length(title)
-        IO.inspect title_length
+        # title_length = String.length(title)
+        # IO.inspect title_length
         
         sendRequest(conn, title, body)
     end

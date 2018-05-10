@@ -24,14 +24,14 @@ defmodule StackoverflowCloneB.Controller.Question.Update do
         ErrorJson.json_by_error(conn, BadRequestError.new())
       {:ok, _} ->
         with_question(conn, fn question ->
-          IO.inspect "inside "<>id
-          IO.inspect "inside userid "<>user_id
+          # IO.inspect "inside "<>id
+          # IO.inspect "inside userid "<>user_id
           question_owner = question["data"]["user_id"]
-          IO.inspect question_owner
+          # IO.inspect question_owner
           
           if user_id == question_owner do        
               request_body = conn.request.body
-              IO.inspect request_body
+              # IO.inspect request_body
               request_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => request_body}}
               request = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), Helper.collection_name(), id, SD.root_key(), request_body)
               response = G2gClient.send(conn.context, SD.app_id(), request)
@@ -43,7 +43,7 @@ defmodule StackoverflowCloneB.Controller.Question.Update do
               end
             
           else 
-            IO.inspect "failed"
+            # IO.inspect "failed"
             Conn.json(conn, 200, %{"message" => "failed"})
           end
         end)
@@ -51,9 +51,9 @@ defmodule StackoverflowCloneB.Controller.Question.Update do
   end
 
   def with_question(%Conn{request: %Request{path_matches: %{id: id}}} = conn, f) do
-    IO.inspect "function "<>id
-    request_body = conn.request.body
-    IO.inspect request_body
+    # IO.inspect "function "<>id
+    # request_body = conn.request.body
+    # IO.inspect request_body
     req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(), Helper.collection_name(), id, SD.root_key())
     res = G2gClient.send(conn.context, SD.app_id(), req)
     case res do

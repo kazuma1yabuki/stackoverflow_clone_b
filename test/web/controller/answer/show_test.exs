@@ -3,7 +3,7 @@ defmodule StackoverflowCloneB.Controller.Answer.ShowTest do
   alias Sazabi.G2gClient
   alias StackoverflowCloneB.TestData.AnswerData
 
-  @api_prefix "/v1/answer"
+  @api_prefix "/v1/answer/answer_id"
 
   test "show/1 " <> 
     "Test returns the list of answer" do

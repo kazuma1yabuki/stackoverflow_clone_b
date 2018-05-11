@@ -9,6 +9,7 @@ defmodule StackoverflowCloneB.Controller.Answer.UpdateTest do
 
   test "update/1 " <>
     "Test to update answer" do
+
       :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
         SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
       end)
@@ -16,15 +17,16 @@ defmodule StackoverflowCloneB.Controller.Answer.UpdateTest do
       :meck.expect(G2gClient, :send, fn(_, _, req) ->
         # IO.inspect "======= REQUEST"
         case req do
-          %Dodai.RetrieveDedicatedDataEntityRequest{} ->
+          %Dodai.RetrieveDedicatedDataEntityRequest{} = _retrieve_req ->
             # IO.inspect "======= RETRIEVE"
+            # expected_retrieve_result = %Dodai.RetrieveDedicatedDataEntitySuccess{body: AnswerData.dodai()}
             %Dodai.RetrieveDedicatedDataEntitySuccess{body: AnswerData.dodai()}
-            # %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"title" => "new title"}}}
-          %Dodai.UpdateDedicatedDataEntityRequest{} ->
+          %Dodai.UpdateDedicatedDataEntityRequest{} = update_req ->
             # IO.inspect "======= UPDATE"
-            assert req.body == %Dodai.UpdateDedicatedDataEntityRequestBody{
-              data: %{"$set" => %{"body" => "new body"}}
+            expected_req = %Dodai.UpdateDedicatedDataEntityRequestBody{
+              data: %{"$set" => %{"body" => "body"}}
             }
+            assert update_req.body == expected_req
             %Dodai.UpdateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
         end
       end)

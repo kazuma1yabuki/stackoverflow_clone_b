@@ -26,7 +26,6 @@ defmodule StackoverflowCloneB.Controller.Question.Create do
     # 作成するquestionのdataを組み立てる
 
     rqbody = RequestBody.new(conn.request.body)
-    IO.inspect rqbody
 
       case rqbody do
         {:ok,_} ->

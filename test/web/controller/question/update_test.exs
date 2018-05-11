@@ -28,9 +28,9 @@ defmodule StackoverflowCloneB.Controller.Question.UpdateTest do
             %Dodai.UpdateDedicatedDataEntitySuccess{body: QuestionData.dodai()}
         end
       end)
-  
+
       res = Req.put_json(@api_prefix, @body, @header)
-      assert res.status               == 201
+      assert res.status               == 200
       assert Poison.decode!(res.body) == QuestionData.gear()
   end
 end

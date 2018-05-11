@@ -18,7 +18,7 @@ defmodule StackoverflowCloneB.Controller.Question.CreateTest do
           "comments"        => [],
           "like_voter_ids"    => [],
           "dislike_voter_ids" => [],
-          "title" => "タイトル", 
+          "title" => "タイトル",
           "body" => "本文",
           "user_id" => "user_id",}
       }
@@ -26,7 +26,7 @@ defmodule StackoverflowCloneB.Controller.Question.CreateTest do
     end)
 
     res = Req.post_json(@api_prefix, @body, @header)
-    assert res.status               == 201
+    assert res.status               == 200
     assert Poison.decode!(res.body) == QuestionData.gear()
   end
 end

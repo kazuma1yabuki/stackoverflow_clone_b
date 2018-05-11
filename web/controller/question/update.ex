@@ -23,7 +23,6 @@ defmodule StackoverflowCloneB.Controller.Question.Update do
 
   def update(%Conn{request: %Request{path_matches: %{id: id}}, assigns: %{me: %{"_id" => _user_id}}} = conn) do
     # 指定されたidをもつquestionを取得する
-
     with_question(conn, fn question ->
       #IO.inspect question
 

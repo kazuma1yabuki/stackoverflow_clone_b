@@ -16,10 +16,10 @@ defmodule StackoverflowCloneB.Controller.Question.UpdateTest do
       :meck.expect(G2gClient, :send, fn(_, _, req) ->
         # IO.inspect "======= REQUEST"
         case req do
-          %Dodai.RetrieveDedicatedDataEntityRequest{} ->
+          %Dodai.RetrieveDedicatedDataEntityRequest{} = retrieve_req ->
             # IO.inspect "======= RETRIEVE"
+            assert retrieve_req.id == "question_id"
             %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
-            # %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => %{"title" => "new title"}}}
           %Dodai.UpdateDedicatedDataEntityRequest{} ->
             # IO.inspect "======= UPDATE"
             assert req.body == %Dodai.UpdateDedicatedDataEntityRequestBody{

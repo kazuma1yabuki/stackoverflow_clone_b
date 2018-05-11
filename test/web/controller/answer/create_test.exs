@@ -17,6 +17,7 @@ defmodule StackoverflowCloneB.Controller.Answer.CreateTest do
         case req do
           %Dodai.RetrieveDedicatedDataEntityRequest{} = retrieve_req ->
             # IO.inspect "======= RETRIEVE"
+            assert retrieve_req.id == "question_id"
             %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
           %Dodai.CreateDedicatedDataEntityRequest{} = create_req ->
             # IO.inspect "======= CREATE"

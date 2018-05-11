@@ -17,9 +17,9 @@ defmodule StackoverflowCloneB.Controller.Answer.UpdateTest do
       :meck.expect(G2gClient, :send, fn(_, _, req) ->
         # IO.inspect "======= REQUEST"
         case req do
-          %Dodai.RetrieveDedicatedDataEntityRequest{} = _retrieve_req ->
+          %Dodai.RetrieveDedicatedDataEntityRequest{} = retrieve_req ->
             # IO.inspect "======= RETRIEVE"
-            # expected_retrieve_result = %Dodai.RetrieveDedicatedDataEntitySuccess{body: AnswerData.dodai()}
+            assert retrieve_req.id == "answer_id"
             %Dodai.RetrieveDedicatedDataEntitySuccess{body: AnswerData.dodai()}
           %Dodai.UpdateDedicatedDataEntityRequest{} = update_req ->
             # IO.inspect "======= UPDATE"

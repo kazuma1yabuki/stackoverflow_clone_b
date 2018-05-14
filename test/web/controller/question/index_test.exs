@@ -25,7 +25,25 @@ defmodule StackoverflowCloneB.Controller.Question.IndexTest do
   end
 
   test "index/1 " <>
-  "should build query" do
+    "should return questions by user_id query" do
+    :meck.expect(Sazabi.G2gClient, :send, fn(_, _, req) ->
+      assert req.query == %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
+        limit: nil,
+        skip:  nil,
+        query: %{"data.user_id" => "user_id"},
+        sort:  %{"_id" => 1}
+      }
+
+      %Dodai.RetrieveDedicatedDataEntityListSuccess{body: [QuestionData.dodai()]}
+    end)
+
+    res = Req.get(@api_prefix <> "?" <> build_query_string(%{"user_id" => "user_id"}))
+    assert res.status               == 200
+    assert Poison.decode!(res.body) == [QuestionData.gear()]
+  end
+
+  test "index/1 " <>
+  "should build question query" do
     params_list = [
       {%IndexRequestParams{user_id: nil,       title: nil,     body: nil   }, %Query{query: %{                                                                           }, sort: %{"_id" => 1}}},
       {%IndexRequestParams{user_id: nil,       title: "title", body: nil   }, %Query{query: %{                             "data.title" => "title"                       }, sort: %{"_id" => 1}}},

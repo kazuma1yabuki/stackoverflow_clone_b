@@ -3,7 +3,8 @@ use Croma
 defmodule StackoverflowCloneB.Controller.Question.IndexRequestParams do
   use Croma.Struct, fields: [
     user_id: Croma.TypeGen.nilable(Croma.String),
-    title:  Croma.TypeGen.nilable(Croma.String),
+    title: Croma.TypeGen.nilable(Croma.String),
+    body: Croma.TypeGen.nilable(Croma.String),
   ]
 end
 

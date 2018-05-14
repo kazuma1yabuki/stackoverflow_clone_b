@@ -4,6 +4,7 @@ defmodule StackoverflowCloneB.Controller.Answer.IndexRequestParams do
   use Croma.Struct, fields: [
     user_id: Croma.TypeGen.nilable(Croma.String),
     question_id: Croma.TypeGen.nilable(Croma.String),
+    body: Croma.TypeGen.nilable(Croma.String),
   ]
 end
 

@@ -24,25 +24,16 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
 
     [_, action, document_id, _] = path_info
     capitalized_action = String.capitalize(action)
-    # question_action = QuestionHelper.collection_name()
-    # answer_action = AnswerHelper.collection_name()
-    case(capitalized_action) do
-      "Question" ->
-        updateCommentFromQuestion(conn, document_id)
-      "Answer" ->
-        IO.inspect "ANSWER "<>document_id
-        # updateCommentFromQuestion(conn, document_id)
-    end
+    updateCommentFromAction(conn, capitalized_action, document_id)
   end
 
-  def updateCommentFromQuestion(conn, document_id) do
-    with_question(conn, document_id, fn question -> 
+  def updateCommentFromAction(conn, action, document_id) do
+    with_action(conn, action, document_id, fn question -> 
       if question["data"]["user_id"] == conn.assigns.me["_id"] do
         request_body = RequestBody.new(conn.request.body)
         case request_body do
           {:ok,_} ->
             comment_request = conn.request.body["body"]
-            # question_comments = question["data"]["comments"]
             timestamp = Time.to_iso_timestamp(Time.now())
             user_id = conn.assigns.me["_id"]
 
@@ -56,7 +47,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
             comment_request_body = %{ "comments" => comment_body }
             req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$push" => comment_request_body}}
             
-            req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), QuestionHelper.collection_name(), document_id, SD.root_key(), req_body)
+            req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), action, document_id, SD.root_key(), req_body)
             %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)
             Conn.json(conn, 200, QuestionHelper.to_response_body(res_body))
           {:error,_} ->
@@ -68,8 +59,10 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
     end)
   end
 
-  def with_question(conn, document_id, f) do
-    req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(), QuestionHelper.collection_name(), document_id, SD.root_key())
+  # With action: request the question or answer depends on the action whether the item
+  # requested is available or not
+  def with_action(conn, action, document_id, f) do
+    req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(), action, document_id, SD.root_key())
     res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
     case res do
       %Dodai.RetrieveDedicatedDataEntitySuccess{body: body} -> f.(body)

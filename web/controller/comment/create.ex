@@ -6,7 +6,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
   alias SolomonLib.Time, as: Time
   alias StackoverflowCloneB.Dodai, as: SD
   alias StackoverflowCloneB.Controller.Question.Helper, as: QuestionHelper
-  # alias StackoverflowCloneB.Controller.Answer.Helper
+  alias StackoverflowCloneB.Controller.Answer.Helper, as: AnswerHelper
 
   defmodule RequestBody do
     defmodule BodyString do
@@ -49,7 +49,12 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
           
           req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), action, target_id, SD.root_key(), req_body)
           %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)
-          Conn.json(conn, 200, QuestionHelper.to_response_body(res_body))
+          case(action) do
+            "Question" ->
+              Conn.json(conn, 200, QuestionHelper.to_response_body(res_body))
+            "Answer" ->
+              Conn.json(conn, 200, AnswerHelper.to_response_body(res_body))
+          end      
         {:error,_} ->
           ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new)
       end

@@ -28,33 +28,30 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
   end
 
   def updateCommentFromAction(conn, action, document_id) do
-    with_action(conn, action, document_id, fn question -> 
-      if question["data"]["user_id"] == conn.assigns.me["_id"] do
-        request_body = RequestBody.new(conn.request.body)
-        case request_body do
-          {:ok,_} ->
-            comment_request = conn.request.body["body"]
-            timestamp = Time.to_iso_timestamp(Time.now())
-            user_id = conn.assigns.me["_id"]
+    with_action(conn, action, document_id, fn request_result -> 
+      target_id = request_result["_id"]
+      request_body = RequestBody.new(conn.request.body)
+      case request_body do
+        {:ok,_} ->
+          comment_request = conn.request.body["body"]
+          timestamp = Time.to_iso_timestamp(Time.now())
+          user_id = conn.assigns.me["_id"]
 
-            comment_body = %{
-              "id"         => RandomString.stream(:alphanumeric) |> Enum.take(20) |> List.to_string,      # 上記の方法でランダムな文字列を生成
-              "user_id"    => user_id,
-              "body"       => comment_request,
-              "created_at" => timestamp,
-              }
-            
-            comment_request_body = %{ "comments" => comment_body }
-            req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$push" => comment_request_body}}
-            
-            req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), action, document_id, SD.root_key(), req_body)
-            %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)
-            Conn.json(conn, 200, QuestionHelper.to_response_body(res_body))
-          {:error,_} ->
-            ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new)
-        end
-      else
-        ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.CredentialError.new())
+          comment_body = %{
+            "id"         => RandomString.stream(:alphanumeric) |> Enum.take(20) |> List.to_string,      # 上記の方法でランダムな文字列を生成
+            "user_id"    => user_id,
+            "body"       => comment_request,
+            "created_at" => timestamp,
+            }
+          
+          comment_request_body = %{ "comments" => comment_body }
+          req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$push" => comment_request_body}}
+          
+          req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), action, target_id, SD.root_key(), req_body)
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)
+          Conn.json(conn, 200, QuestionHelper.to_response_body(res_body))
+        {:error,_} ->
+          ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new)
       end
     end)
   end

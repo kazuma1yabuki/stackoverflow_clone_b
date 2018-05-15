@@ -10,7 +10,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
 
   defmodule RequestBody do
     defmodule BodyString do
-      use Croma.SubtypeOfString, pattern: ~r/^.{1,3000}$/
+      use Croma.SubtypeOfString, pattern: ~r/^.{1,1000}$/
     end
   
     use Croma.Struct, fields: [

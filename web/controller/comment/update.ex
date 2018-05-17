@@ -76,3 +76,31 @@ defmodule StackoverflowCloneB.Controller.Comment.Update do
     end
   end
 end
+
+# use Croma
+# defmodule StackoverflowCloneB.Controller.Comment.Update do
+#   use StackoverflowCloneB.Controller.Application
+#   alias StackoverflowCloneB.Dodai, as: SD
+#   alias Sazabi.G2gClient
+#   alias StackoverflowCloneB.Controller.Comment.Helper
+#
+#   defmodule RequestBody do
+#     defmodule BodyString do
+#       use Croma.SubtypeOfString, pattern: ~r/^.{1,1000}$/
+#     end
+#     use Croma.Struct, fields: {
+#     body: Bodystring
+#     }
+#
+#   end
+#
+#   plug StackoverflowCloneB.Plug.FetchMe, :fetch, []
+#
+#   def create(%Conn{request: %Request{paht_info: PAth_info}} = commend) do
+#
+#   end
+# end
+#
+#
+#
+#

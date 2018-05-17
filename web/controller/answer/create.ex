@@ -67,7 +67,7 @@ defmodule StackoverflowCloneB.Controller.Answer.Create do
     res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
     case res do
       %Dodai.RetrieveDedicatedDataEntitySuccess{} -> f.()
-      %Dodai.ResourceNotFound{}                             -> ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.BadRequestError.new())
+      %Dodai.ResourceNotFound{}                             -> ErrorJson.json_by_error(conn, StackoverflowCloneB.Error.ResourceNotFoundError.new())
     end
   end
 

@@ -34,7 +34,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Update do
           available_comments = request_result["data"]["comments"]
 
           # Took one and check user for update
-          expected_comment = Enum.at(Enum.filter(available_comments, fn (item) -> item["id"] == target_id end), 0)
+          expected_comment = Helper.get_comment_by_id(available_comments, target_id)
           if expected_comment["user_id"] == conn.assigns.me["_id"] do
             # update directly inside list
             # IO.inspect "BEFORE"

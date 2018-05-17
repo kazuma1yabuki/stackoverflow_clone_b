@@ -12,13 +12,13 @@ defmodule StackoverflowCloneB.TestData.AnswerData do
       "question_id" => "question_id",
       "comments"    => [
         %{
-          "_id"        => "comment_id1",
+          "id"        => "comment_id1",
           "body"       => "本文1",
           "user_id"    => "5976b4b037000037006d69c0",
           "created_at" => "2018-02-19T01:01:00+00:00"
         },
         %{
-          "_id"        => "comment_id2",
+          "id"        => "comment_id2",
           "body"       => "本文2",
           "user_id"    => "5976b4b037000037006d69c1",
           "created_at" => "2018-02-19T01:02:00+00:00"

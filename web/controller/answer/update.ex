@@ -31,7 +31,11 @@ defmodule StackoverflowCloneB.Controller.Answer.Update do
         case rqbody do
           {:ok,_} ->
             ### 1. dodaiに対してrequestするrequest bodyを作成する
-            req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => conn.request.body}}
+            request_body = conn.request.body["body"]
+            data = %{
+              "body" => request_body
+            }
+            req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => data}}
             ### 2. dodaiに対してrequestするためのstructを作る
             req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Answer", id, SD.root_key(), req_body)
             %Dodai.UpdateDedicatedDataEntitySuccess{body: res_body} = G2gClient.send(conn.context, SD.app_id(), req)

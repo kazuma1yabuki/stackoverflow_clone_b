@@ -28,7 +28,6 @@ defmodule StackoverflowCloneB.Controller.Answer.Create do
             "comments"        => [],
             "like_voter_ids"    => [],
             "dislike_voter_ids" => [],
-            # titleとbodyはrequest bodyから取り出す
             "question_id"     => conn.request.body["question_id"],
             "body"            => conn.request.body["body"],
             "user_id"          => conn.assigns.me["_id"],

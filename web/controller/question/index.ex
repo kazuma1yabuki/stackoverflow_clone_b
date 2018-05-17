@@ -42,7 +42,7 @@ defmodule StackoverflowCloneB.Controller.Question.Index do
     |> Map.new()
     %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
       query: query,
-      sort:  %{"_id" => 1}
+      sort:  %{"createdAt" => 1}
     }
   end
 end

@@ -13,7 +13,7 @@ defmodule StackoverflowCloneB.Controller.Comment.Create do
     end
 
     use Croma.Struct, fields: [
-      body: Croma.TypeGen.nilable(CommentString),
+      body: CommentString,
     ]
   end
 

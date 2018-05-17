@@ -1,11 +1,11 @@
 use Croma
 
 defmodule StackoverflowCloneB.Helper.ErrorJson do
-  use SolomonLib.Controller
+  use Antikythera.Controller
 
   defun json_by_error(conn :: v[Conn.t], %{code: code, name: name, description: description}) :: Conn.t do
     status = code |> String.split("-") |> List.first |> String.to_integer
-    SolomonLib.Conn.json(conn, status, %{
+    Antikythera.Conn.json(conn, status, %{
       "code"        => code,
       "error"       => name,
       "description" => description,

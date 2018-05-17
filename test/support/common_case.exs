@@ -2,8 +2,8 @@ defmodule StackoverflowCloneB.CommonCase do
   use ExUnit.CaseTemplate
   using do
     quote do
-      Module.put_attribute __MODULE__, :time,     {SolomonLib.Time, {2017, 7, 20}, {1, 00, 00}, 000}
-      Module.put_attribute __MODULE__, :conn,     SolomonLib.Test.ConnHelper.make_conn()
+      Module.put_attribute __MODULE__, :time,     {Antikythera.Time, {2017, 7, 20}, {1, 00, 00}, 000}
+      Module.put_attribute __MODULE__, :conn,     Antikythera.Test.ConnHelper.make_conn()
       Module.put_attribute __MODULE__, :app_id,   "a_12345678"
       Module.put_attribute __MODULE__, :group_id, "g_12345678"
 
@@ -34,7 +34,7 @@ defmodule StackoverflowCloneB.CommonCase do
 
       defp mock_fetch_me_plug(me) do
         :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _opts) ->
-          SolomonLib.Conn.assign(conn, :me, me)
+          Antikythera.Conn.assign(conn, :me, me)
         end)
       end
     end

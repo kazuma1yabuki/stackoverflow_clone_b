@@ -3,9 +3,9 @@ use Croma
 defmodule StackoverflowCloneB.Controller.Application do
   defmacro __using__(_) do
     quote do
-      use SolomonLib.Controller
+      use Antikythera.Controller
 
-      alias SolomonLib.{Conn, Request}
+      alias Antikythera.{Conn, Request}
       alias StackoverflowCloneB.DodaiId
       alias StackoverflowCloneB.Helper.ErrorJson
 

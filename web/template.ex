@@ -1,3 +1,3 @@
 defmodule StackoverflowCloneB.Template do
-  use SolomonLib.TemplatePrecompiler
+  use Antikythera.TemplatePrecompiler
 end

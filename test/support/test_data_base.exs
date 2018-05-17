@@ -1,5 +1,5 @@
 defmodule StackoverflowCloneB.TestData.Base do
-  @time       {SolomonLib.Time, {2018, 2, 18}, {1, 1, 0}, 0}
+  @time       {Antikythera.Time, {2018, 2, 18}, {1, 1, 0}, 0}
   @model_base %{
     created_at: @time,
     updated_at: @time,

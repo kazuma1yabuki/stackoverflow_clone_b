@@ -13,7 +13,7 @@ defmodule StackoverflowCloneB.Controller.Comment.UpdateTest do
   test "update/1 " <>
     "Update test for comment inside question" do
       :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
-        SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
+        Antikythera.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
       end)
 
       :meck.expect(StackoverflowCloneB.Controller.Comment.Helper, :get_comment_by_id, fn(_, _) ->
@@ -65,7 +65,7 @@ defmodule StackoverflowCloneB.Controller.Comment.UpdateTest do
   test "update/1 " <>
     "Update test for comment inside answer" do
       :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
-        SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
+        Antikythera.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
       end)
 
       :meck.expect(StackoverflowCloneB.Controller.Comment.Helper, :get_comment_by_id, fn(_, _) ->

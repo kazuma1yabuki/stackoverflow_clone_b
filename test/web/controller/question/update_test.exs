@@ -10,7 +10,7 @@ defmodule StackoverflowCloneB.Controller.Question.UpdateTest do
   test "update/1 " <>
     "test to update question" do
       :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
-        SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
+        Antikythera.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
       end)
 
       :meck.expect(G2gClient, :send, fn(_, _, req) ->

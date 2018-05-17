@@ -1,8 +1,8 @@
 use Croma
 
 defmodule StackoverflowCloneB.Helper.SazabiProxy do
-  use SolomonLib.Controller
-  alias SolomonLib.{Conn, Request}
+  use Antikythera.Controller
+  alias Antikythera.{Conn, Request}
   alias StackoverflowCloneB.Dodai
 
   defun proxy(conn :: v[Conn.t], f :: ((map | [map] | String.t) -> Conn.t)) :: Conn.t do

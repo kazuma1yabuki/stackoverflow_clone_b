@@ -17,7 +17,7 @@ defmodule StackoverflowCloneB.Model.Question do
     use Croma.SubtypeOfList, elem_module: StackoverflowCloneB.DodaiId
   end
 
-  use SolomonAcs.Dodai.Model.Datastore, data_fields: [
+  use AntikytheraAcs.Dodai.Model.Datastore, data_fields: [
     title:             Title,
     body:              Body,
     user_id:           StackoverflowCloneB.DodaiId,

@@ -5,5 +5,5 @@ defmodule StackoverflowCloneB.Model.User do
   User of StackoverflowCloneB app.
   """
 
-  use SolomonAcs.Dodai.Model.User
+  use AntikytheraAcs.Dodai.Model.User
 end

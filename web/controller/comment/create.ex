@@ -3,7 +3,7 @@ use Croma
 defmodule StackoverflowCloneB.Controller.Comment.Create do
   use StackoverflowCloneB.Controller.Application
   alias Sazabi.G2gClient
-  alias SolomonLib.Time, as: Time
+  alias Antikythera.Time, as: Time
   alias StackoverflowCloneB.Dodai, as: SD
   alias StackoverflowCloneB.Controller.Comment.Helper
 

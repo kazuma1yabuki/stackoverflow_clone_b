@@ -18,7 +18,7 @@ defmodule StackoverflowCloneB.Controller.Answer.Index do
   defun index(%Conn{request: %Request{query_params: query_params}, context: context} = conn :: v[Conn.t]) :: Conn.t do
     #IO.inspect Request >solomonLib.Request
     #IO.inspect query_params >%{"user_id" => "5ae0129c38000038001da6ee"}
-    #IO.inspect context %SolomonLib.Context{context_id: "20180514-051637.691_y50-77226_0.599.0",executor_pool_id: {:gear, :stackoverflow_clone_b}, gear_entry_point: {StackoverflowCloneB.Controller.Answer.Index, :index}, gear_name: :stackoverflow_clone_b,start_time: {SolomonLib.Time, {2018, 5, 14}, {5, 16, 37}, 691}}
+    #IO.inspect context %Antikythera.Context{context_id: "20180514-051637.691_y50-77226_0.599.0",executor_pool_id: {:gear, :stackoverflow_clone_b}, gear_entry_point: {StackoverflowCloneB.Controller.Answer.Index, :index}, gear_name: :stackoverflow_clone_b,start_time: {Antikythera.Time, {2018, 5, 14}, {5, 16, 37}, 691}}
     case IndexRequestParams.new(query_params) do
       {:error, _}      ->
         ErrorJson.json_by_error(conn, BadRequestError.new())

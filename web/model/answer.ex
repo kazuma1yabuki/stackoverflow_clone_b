@@ -9,7 +9,7 @@ defmodule StackoverflowCloneB.Model.Answer do
     use Croma.SubtypeOfString, pattern: ~r/\A[\s\S]{1,3000}\z/u
   end
 
-  use SolomonAcs.Dodai.Model.Datastore, data_fields: [
+  use AntikytheraAcs.Dodai.Model.Datastore, data_fields: [
     body:        Body,
     user_id:     StackoverflowCloneB.DodaiId,
     question_id: StackoverflowCloneB.DodaiId,

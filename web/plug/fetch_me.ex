@@ -1,7 +1,7 @@
 use Croma
 
 defmodule StackoverflowCloneB.Plug.FetchMe do
-  alias SolomonLib.Conn
+  alias Antikythera.Conn
   alias StackoverflowCloneB.Dodai, as: SD
   alias StackoverflowCloneB.Helper.ErrorJson
   alias StackoverflowCloneB.Error.CredentialError

@@ -1,5 +1,5 @@
-SolomonLib.Test.Config.init()
-SolomonLib.Test.GearConfigHelper.set_config(%{
+Antikythera.Test.Config.init()
+Antikythera.Test.GearConfigHelper.set_config(%{
   "root_key" => "rkey_xxx",
   "app_key"  => "akey_xxx",
   "app_id"   => "a_12345678",
@@ -7,11 +7,11 @@ SolomonLib.Test.GearConfigHelper.set_config(%{
 })
 
 defmodule Req do
-  use SolomonLib.Test.HttpClient
+  use Antikythera.Test.HttpClient
 end
 
 defmodule Socket do
-  use SolomonLib.Test.WebsocketClient
+  use Antikythera.Test.WebsocketClient
 end
 
 Code.load_file("test/support/common_case.exs")

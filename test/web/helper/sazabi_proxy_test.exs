@@ -8,7 +8,7 @@ defmodule StackoverflowCloneB.Helper.SazabiProxyTest do
     :meck.expect(Sazabi.G2g, :send, fn(conn) ->
       assert conn.request.path_info == ["v1", Dodai.app_id(), Dodai.default_group_id(), "user", "logout"]
 
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         headers: %{},
         cookies: %{},
         status:  204,
@@ -27,7 +27,7 @@ defmodule StackoverflowCloneB.Helper.SazabiProxyTest do
     "when G2g.send returns error response " <>
     "it returns error response" do
     :meck.expect(Sazabi.G2g, :send, fn(_conn) ->
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         headers: %{},
         cookies: %{},
         status:  404,
@@ -54,7 +54,7 @@ defmodule StackoverflowCloneB.Helper.SazabiProxyTest do
     "when G2g.send returns empty string " <>
     "it returns empty string" do
     :meck.expect(Sazabi.G2g, :send, fn(_conn) ->
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         headers: %{},
         cookies: %{},
         status:  204,
@@ -74,7 +74,7 @@ defmodule StackoverflowCloneB.Helper.SazabiProxyTest do
     "when G2g.send returns non-empty string " <>
     "it returns non-empty string" do
     :meck.expect(Sazabi.G2g, :send, fn(_conn) ->
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         headers: %{},
         cookies: %{},
         status:  200,

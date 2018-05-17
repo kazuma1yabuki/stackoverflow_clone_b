@@ -9,7 +9,7 @@ defmodule StackoverflowCloneB.Controller.User.ProxyTest do
   test "logout/1 " <>
     "it returns 204" do
     :meck.expect(Sazabi.G2g, :send, fn(_conn) ->
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         body:    "",
         cookies: %{},
         headers: %{},
@@ -25,7 +25,7 @@ defmodule StackoverflowCloneB.Controller.User.ProxyTest do
   test "me/1 " <>
     "it returns login user document" do
     :meck.expect(Sazabi.G2g, :send, fn(_conn) ->
-      %SolomonLib.G2gResponse{
+      %Antikythera.G2gResponse{
         body:    @user,
         cookies: %{},
         headers: %{},

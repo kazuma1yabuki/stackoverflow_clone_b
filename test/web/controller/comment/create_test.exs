@@ -13,10 +13,10 @@ defmodule StackoverflowCloneB.Controller.Comment.CreateTest do
   test "create/1 " <> 
     "Create comment at question test" do
     :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
-      SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
+      Antikythera.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
     end)
 
-    :meck.expect(SolomonLib.Time, :to_iso_timestamp, fn(_) ->
+    :meck.expect(Antikythera.Time, :to_iso_timestamp, fn(_) ->
       "2018-02-18T01:01:00+00:00"
     end)
 
@@ -61,10 +61,10 @@ defmodule StackoverflowCloneB.Controller.Comment.CreateTest do
   test "create/1 " <> 
     "Create comment at answer test" do
     :meck.expect(StackoverflowCloneB.Plug.FetchMe, :fetch, fn(conn, _) ->
-      SolomonLib.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
+      Antikythera.Conn.assign(conn, :me, StackoverflowCloneB.TestData.UserData.dodai())
     end)
 
-    :meck.expect(SolomonLib.Time, :to_iso_timestamp, fn(_) ->
+    :meck.expect(Antikythera.Time, :to_iso_timestamp, fn(_) ->
       "2018-02-18T01:01:00+00:00"
     end)
 

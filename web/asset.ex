@@ -1,7 +1,7 @@
 defmodule StackoverflowCloneB.Asset do
-  use SolomonLib.Asset
+  use Antikythera.Asset
 
-  if SolomonLib.Env.compile_env == :undefined do
+  if Antikythera.Env.compile_env == :undefined do
     @webpack_dev_server_host_url "http://localhost:8082/priv/static"
 
     def make_url(path) do

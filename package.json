@@ -56,7 +56,7 @@
     "karma-single-run": "BABEL_ENV=test ./node_modules/karma-cli/bin/karma start --single-run --browsers jsdom",
     "karma-single-run-with-coverage": "BABEL_ENV=coverage ./node_modules/karma-cli/bin/karma start --single-run --browsers jsdom",
     "webpack-production": "NODE_ENV=production node ./node_modules/webpack/bin/webpack.js",
-    "solomon_prepare_assets": "yarn run eslint && yarn run karma-single-run && yarn run webpack-production"
+    "antikythera_prepare_assets": "yarn run eslint && yarn run karma-single-run && yarn run webpack-production"
   },
   "author": "",
   "private": true
